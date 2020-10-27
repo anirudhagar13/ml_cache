@@ -25,8 +25,8 @@ class WikipediaSpider(scrapy.Spider):
     visited_urls = list()
 
     # Initializing to visit links. Hardcode
-    file_path = os.path.dirname(__file__) + '/../../static/mlcache/'
-    df = pd.read_excel(file_path + 'web_links.xlsx') 
+    abs_path = os.path.dirname(__file__) + '/../../'
+    df = pd.read_excel(abs_path + 'web_links.xlsx') 
 
     # Filter to ensure only wikipedia pages are crawled
     visit_urls = [x for x in df['Url'].dropna().tolist() 
