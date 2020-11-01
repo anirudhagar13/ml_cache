@@ -27,8 +27,8 @@ def data_evenness(data):
 		data = pd.DataFrame.from_dict(data)
 
 	# Renaming following columns
-	doc_col_names = ['Text']
-	cat_col_names = ['Category']
+	doc_col_names = ['Text', 'documents']
+	cat_col_names = ['Category', 'categories']
 	doc_ren_name = [x for x in doc_col_names if x in data.columns.values]
 	cat_ren_name = [x for x in cat_col_names if x in data.columns.values]
 
@@ -147,7 +147,7 @@ def doc_predict(data, token, encoder='label', estimator='log',
 
 if __name__ == '__main__':
 
-	# Define the parser, to read path of directorty containing images
+	# Define the parser, to read the input arguments
 	parser = argparse.ArgumentParser(description='Document classifier')
 
 	# Absolute path of training file and prediction file

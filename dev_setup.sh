@@ -11,6 +11,7 @@ pip install keras
 pip install --upgrade setuptools
 pip install tensorflow
 pip install stemming
+pip install beautifulsoup4
 pip install spacy
 python -m spacy download en
 pip install nltk

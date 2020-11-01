@@ -1,6 +1,7 @@
 # Contains re-usable file related operations
 import os
 import csv
+import sys
 import json
 import pandas as pd
 import dill as pickle
@@ -14,6 +15,9 @@ dirpath = os.path.dirname(__file__)
 if dirpath:
 	# To compensate relative paths
 	dirpath += '/'
+
+# Increasing Field size
+csv.field_size_limit(sys.maxsize)
 
 def getAbspath():
 	'''
@@ -32,6 +36,7 @@ def read_to_string(inpfile_path):
 			data = inp_file.read().replace('\n', ' ')
 	except Exception as e:
 		logger.error("'read_to_string' - Issue with file : ",e)
+		raise e
 
 	return data
 
@@ -46,6 +51,7 @@ def read_from_json(inpfile_path):
 			data = json.load(inpfile)
 	except Exception as e:
 		logger.error("'read_from_json' - Issue with file : ",e)
+		raise e
 
 	return data
 
@@ -60,7 +66,7 @@ def read_from_pkl(inpfile_path):
 			data = pickle.load(inpfile)
 	except Exception as e:
 		logger.error("'read_from_pkl' - Issue with file : ",e)
-		raise Exception(e)
+		raise e
 
 	return data
 
@@ -74,6 +80,7 @@ def read_from_excel(inpfile_path, sheet_name=None):
 		data = pd.read_excel(inpfile_path, sheet_name=sheet_name)
 	except Exception as e:
 		logger.error("'read_from_excel' - Issue with file : ",e)
+		raise e
 
 	return data
 
@@ -89,6 +96,7 @@ def read_from_csv(inpfile_path, delimiter=','):
 				data_table.append(row)
 	except Exception as e:
  		logger.error("'read_from_csv' - Issue with file : ",e)
+ 		raise e
 
     
 	# Converting list to dataframe
@@ -127,6 +135,7 @@ def read_big_csv(inpfile_path, delimiter=',', chunk_size=1000):
 
 	except Exception as e:
  		logger.error("'read_from_csv' - Issue with file : ",e)
+ 		raise e
 
  	# Sending remaining of file left after chunking
 	df = pd.DataFrame(data_table, columns=headers)
@@ -140,6 +149,7 @@ def write_to_csv(df, outfile_path, mode='w', header=True, sep=','):
 		df.to_csv(outfile_path, index=False, mode=mode, header=header, sep=sep)
 	except Exception as e:
  		logger.error("'write_to_csv' - Issue with file : ",e)
+ 		raise e
 
 def write_to_excel(df, outfile_path, sheet_name='Sheet 1'):
 	'''
@@ -151,6 +161,7 @@ def write_to_excel(df, outfile_path, sheet_name='Sheet 1'):
 		writer.save()
 	except Exception as e:
  		logger.error("'write_to_excel' - Issue with file : ",e)
+ 		raise e
 
 def write_to_json(data, outfile_path, mode='w'):
  	'''
@@ -163,6 +174,7 @@ def write_to_json(data, outfile_path, mode='w'):
 	 		json.dump(data, outfile, indent=4)
  	except Exception as e:
  		logger.error("'write_to_json' - Issue with file : ",e)
+ 		raise e
 
 def write_to_pkl(data, outfile_path, mode='wb'):
  	'''
@@ -175,4 +187,5 @@ def write_to_pkl(data, outfile_path, mode='wb'):
 	 		pickle.dump(data, outfile)
  	except Exception as e:
  		logger.error("'write_to_pkl' - Issue with file : ",e)
+ 		raise e
  				
