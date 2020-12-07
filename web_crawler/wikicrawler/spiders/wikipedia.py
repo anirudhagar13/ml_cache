@@ -26,11 +26,11 @@ class WikipediaSpider(scrapy.Spider):
 
     # Initializing to visit links. Hardcode
     abs_path = os.path.dirname(__file__) + '/../../'
-    df = pd.read_excel(abs_path + 'web_links.xlsx') 
+    df = pd.read_csv(abs_path + 'web_links.csv') 
 
     # Filter to ensure only wikipedia pages are crawled
     visit_urls = [x for x in df['Url'].dropna().tolist() 
-    				if 'https://en.wikipedia.org' in x]
+    				if 'http://en.wikipedia.org/wiki/' in x]
 
     def start_requests(self):
     	'''
@@ -57,13 +57,13 @@ class WikipediaSpider(scrapy.Spider):
     	item = self.store_data(response)  
 
     	# Parsing response for link extraction
-    	soup = BeautifulSoup(response.body, features="lxml")  		
+    	# soup = BeautifulSoup(response.body, features="lxml")  		
 
-    	# Setting up crawling of second page i.e. child links
-    	ext_links = WikipediaSpider.get_see_also(soup, response.url)
-    	for url in ext_links:
-    		if url not in self.visited_urls:
-    			yield scrapy.Request(url, callback=self.parse_second_page)   	
+    	# # Setting up crawling of second page i.e. child links
+    	# ext_links = WikipediaSpider.get_see_also(soup, response.url)
+    	# for url in ext_links:
+    	# 	if url not in self.visited_urls:
+    	# 		yield scrapy.Request(url, callback=self.parse_second_page)   	
 
     	return item
 

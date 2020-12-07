@@ -8,7 +8,7 @@ import operator
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-from .files import read_from_csv
+from .files import read_from_csv, write_to_csv
 from .encoder import encoderFactory
 from .evaluate import validateFactory
 from .estimator import estimatorFactory
@@ -175,4 +175,5 @@ if __name__ == '__main__':
 	if args.ppath != '':
 		data = read_from_csv(args.ppath)
 		predictions = doc_predict(data, args.token)
-		print (predictions)
+		data['predictions'] = predictions
+		write_to_csv(data, 'final_predictions.csv')
