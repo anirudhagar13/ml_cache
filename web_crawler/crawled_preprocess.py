@@ -3,7 +3,7 @@ import json
 import pandas as pd
 
 data = dict()
-with open('wikicrawler/wiki_pages.json') as json_file: 
+with open('wiki_pages.json') as json_file: 
 	data = json.load(json_file)
 
 text_list = list()

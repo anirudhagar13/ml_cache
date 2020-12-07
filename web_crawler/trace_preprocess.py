@@ -5,11 +5,7 @@ import pandas as pd
 url_list = list()
 timestamp_list = list()
 with open('wiki.1190153705', encoding = "ISO-8859-1") as infile:
-    counter = 0
     for line in infile:
-        counter += 1
-        if counter == 1000:
-            break
         
         url = line.split()[2]
         timestamp = line.split()[1]

@@ -175,6 +175,6 @@ if __name__ == '__main__':
 	if args.ppath != '':
 		data = read_from_csv(args.ppath)
 		predictions = doc_predict(data, args.token)
-		del df['Text']
+		del data['Text']
 		data['predictions'] = predictions
 		write_to_csv(data, 'final_predictions.csv')
