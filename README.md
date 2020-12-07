@@ -37,3 +37,10 @@ Optimising cache admission using Machine Learning
 	: 'ofile' - output csv filename to store wikipedia dataset after processing
 - After data is prepared, can follow above Document classifier commands, with updated data path, to tune classifier i.e.
 	: `python -m document_classifier.main --token wiki --tpath 'document_classifier/data/wiki_data.csv'`
+
+# Run code to connect crawler and classifier:
+- Download trace file from this [link](http://www.wikibench.eu/?page_id=60)
+- Unzip and place trace file inside web_crawler folder
+- Change file name and run `python trace_preprocess.py`
+- Run webcrawler using above command
+- Run command `python crawled_preprocess.py`
